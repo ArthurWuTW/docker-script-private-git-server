@@ -25,6 +25,10 @@ release_persistent_volume() {
     docker volume rm ${CONTAINER_PERSISTENT_VOLUME:?} || exit_on_error
 }
 
+PORT_MAPPING_OPTS="\
+    -p 22:22  \
+"
+
 run_container() {
 
     docker run \
@@ -37,6 +41,7 @@ run_container() {
         --volume $HOME/Desktop:/home/$CONTAINER_USER/Desktop \
         $EXTRA_CONTAINER_OPTS \
         $GRAPHICS_OPTS \
+        $PORT_MAPPING_OPTS \
         $IMAGE_NAME \
         $COMMAND || exit_on_error
 }

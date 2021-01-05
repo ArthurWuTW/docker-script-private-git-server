@@ -36,7 +36,8 @@ RUN apt-get update \
         curl \
         openssh-server \
         git-core \
-        net-tools
+        net-tools \
+        vim
 
 COPY enter-container-shell \
     infinite-loop \
@@ -51,9 +52,14 @@ ARG CONTAINER_WORKSPACE_LINK
 
 RUN mkdir ${CONTAINER_PERSISTENT_DIR:?}
 RUN mkdir /home/${CONTAINER_USER:?}/.ssh
+RUN chown ${CONTAINER_USER:?}:${CONTAINER_USER:?} /home/user/.ssh
 
 ARG CONTAINER_HOME
 RUN BASH_HISTORY=${CONTAINER_PERSISTENT_DIR:?}/user-bash-history && \
    touch $BASH_HISTORY && \
    chown ${CONTAINER_USER:?}:${CONTAINER_USER:?} $BASH_HISTORY && \
    ln -s $BASH_HISTORY ${CONTAINER_HOME:?}/.bash_history
+
+COPY sshd_config \
+  /etc/ssh/sshd_config
+RUN chown root:root /etc/ssh/sshd_config

@@ -35,7 +35,8 @@ RUN apt-get update \
         git \
         curl \
         openssh-server \
-        git-core
+        git-core \
+        net-tools
 
 COPY enter-container-shell \
     infinite-loop \

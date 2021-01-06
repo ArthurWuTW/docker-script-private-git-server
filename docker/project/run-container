@@ -5,6 +5,10 @@ xhost +local:
 source $(dirname $0)/common.sh
 source $(dirname $0)/utils.sh
 
+BACKUP_STORAGE_OPTS="\
+     --volume /media/arthur/Transcend/GIT_UBUNTU_BACKUP_SERVER:/home/$CONTAINER_USER/backup_storage \
+"
+
 GRAPHICS_OPTS="\
     --env DISPLAY=$DISPLAY \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
@@ -42,6 +46,7 @@ run_container() {
         $EXTRA_CONTAINER_OPTS \
         $GRAPHICS_OPTS \
         $PORT_MAPPING_OPTS \
+        $BACKUP_STORAGE_OPTS \
         $IMAGE_NAME \
         $COMMAND || exit_on_error
 }

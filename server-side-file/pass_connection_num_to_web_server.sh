@@ -1,5 +1,5 @@
 
-source env.sh
+source $HOME/Desktop/docker-script-private-git-server/server-side-file/env.sh
 echo $SECRET_KEY_SSH
 
 while :
